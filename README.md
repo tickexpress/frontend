@@ -2,8 +2,21 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First Clone and install dependencies, then run the development server:
 
+```bash
+git clone https://github.com/tickexpress/frontend.git
+cd frontend
+```
+Then:
+```
+npm install
+# or
+yarn add
+# or
+pnpm install
+```
+Then:
 ```bash
 npm run dev
 # or
