@@ -30,7 +30,7 @@ const Nav = () => {
       <div className="sm:flex hidden">
         {isUserLoggedIn ? (
           <Link
-            href="/create-prompt"
+            href="/connect-wallet"
             className="flex-row justify-center items-center w-[200px] p-[18px] text-white text-sm rounded-lg bg-gradient-to-r from-[#2472FF] to-[#7E51DB] inline-flex"
           >
             <Image
