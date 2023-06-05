@@ -12,7 +12,8 @@ import EventsHeader from "@components/EventsHeader";
 
 const Events = () => {
   return (
-    <section className={`flex flex-col w-full max-w-7xl`}>
+    // <section className={`flex flex-col w-full max-w-7xl`}>
+    <section className={`top-0 absolute flex flex-col w-full max-w-7xl mt-36`}>
       <EventsHeader />
       <MoreEventSection />
       <Footer />
