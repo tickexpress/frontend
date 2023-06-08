@@ -2,28 +2,48 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { ethers } from 'ethers'
+import { ethers } from 'ethers';
+import TicketExpressABI from "../abis/TicketExpress.json";
+import { ContractAddressEnum } from "./Constants";
+
 
 const Nav = () => {
-  const [account, setAccount]=useState(null);
-  
-  const connectHandler = async ()=>{
+  const [account, setAccount] = useState(null);
+  const [provider, setProvider] = useState(null);
+  const [ticketExpress, setTicketExpress] = useState(null);
+
+  const connectHandler = async () => {
+    // Get provider and setProvider
+    const _provider = new ethers.BrowserProvider(window.ethereum);
+    setProvider(_provider);
+
+    // const signer = await provider?.getSigner();
+
+    const _ticketExpress = new ethers.Contract(ContractAddressEnum.CONTRACTADDRESS, TicketExpressABI, provider);
+    setTicketExpress(_ticketExpress);
+
     // Fetch Accounts
-    const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
     const account = ethers.getAddress(accounts[0]);
-    setAccount(account)
+    setAccount(account);
+
+     // console.log(signer, ticketExpress);
+    //  const balanceInAccount = await ticketExpress?.interface?.balanceOf(account);
+
+     console.log(`Balance In Account ==>`, ticketExpress?.interface)
 
     // Refresh Account 
-    // window.ethereum.on('accountsChange', async ()=>{
-    //   const accounts = await window.ethereum.request({method:'eth_requestAccounts'});
-    //   const account = ethers.getAddress(accounts[0]);
-    //   setAccount(account)
-    // })
+    window.ethereum.on('accountsChange', async () => {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const account = ethers.getAddress(accounts[0]);
+      setAccount(account)
+    })
   }
 
-  // useEffect(()=>{
-  //   connectHandler();
-  // },[])
+  useEffect(() => {
+    connectHandler();
+  }, [])
+
   return (
     <nav className="flex-between w-full pt-10 pb-10 z-10">
       <Link href="/" className="flex gap-2 flex-center">
@@ -49,7 +69,7 @@ const Nav = () => {
       <div className="sm:flex hidden">
         {account ? (
           <button
-          type="button"
+            type="button"
             className="flex-row justify-center items-center w-[200px] p-[18px] text-white text-sm rounded-lg bg-gradient-to-r from-[#2472FF] to-[#7E51DB] inline-flex"
           >
             <Image
@@ -59,11 +79,11 @@ const Nav = () => {
               height={24}
               className="object-contain"
             />
-            <span className="pl-4">{account.slice(0,6)+'...'+account.slice(38,42)}</span>
+            <span className="pl-4">{account.slice(0, 6) + '...' + account.slice(38, 42)}</span>
           </button>
         ) : (
           <button
-          type="button"
+            type="button"
             className="flex-row justify-center items-center w-[200px] p-[18px] text-white text-sm rounded-lg bg-gradient-to-r from-[#2472FF] to-[#7E51DB] inline-flex"
             onClick={connectHandler}
           >

@@ -1,7 +1,5 @@
 import "@styles/globals.css";
 import Nav from "@components/Nav";
-import TicketExpress from "../abis/TicketExpress.json"
-import smartcontractconfig from "./smartcontractconfig.json"
 
 export const metadata = {
   title: "Ticket Express",
@@ -14,10 +12,10 @@ const RootLayout = ({ children }) => {
         <div className="main">
           <div className="bg-slate-200" />
         </div>
-          <main className="app">
-            <Nav />
-            {children}
-          </main>
+        <main className="app">
+          <Nav />
+          {children}
+        </main>
       </body>
     </html>
   );

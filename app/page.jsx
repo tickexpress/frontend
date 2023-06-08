@@ -11,7 +11,6 @@ import Image from "next/image";
 import TicketExpress from "../abis/TicketExpress.json"
 
 const Home = () => {
-  console.log(TicketExpress);
   return (
     <section
       className={`top-0 absolute flex flex-col w-full max-w-7xl`}
