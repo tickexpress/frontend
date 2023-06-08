@@ -94,7 +94,7 @@ const navlink = [
     url: "/events",
   },
   {
-    linktitle: "Sales",
-    url: "/sales",
+    linktitle: "Collections",
+    url: "/collections",
   },
 ];

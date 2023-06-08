@@ -3,12 +3,12 @@ import { EventBackgroundEnum } from "./Constants";
 import Image from "next/image";
 
 const MoreEventSection = (props) => {
-  const { sectionBgColor } = props;
+  const { title } = props;
   return (
     <section
       className={`w-full p-5 pb-20 px-20 grid grid-cols-3 gap-6 min-h-[400px] ${EventBackgroundEnum.WHITE}`}
     >
-      <div className="text-4xl text-black col-span-3">Discover More Events</div>
+      <div className="text-4xl text-black col-span-3">{title}</div>
       <div className="flex flex-row col-span-3 gap-2">
         {moreEventList?.map((item, index) => (
           <button
