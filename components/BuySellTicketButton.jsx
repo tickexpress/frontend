@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { ethers } from 'ethers';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Web3 from 'web3';
 import { ContractAddressEnum, TicketExpressAbi } from './Constants';
 
@@ -8,8 +8,8 @@ const BuySellTicketButton = (props) => {
     const { isTicketResale, ticketDetails } = props;
     const [account, setAccount] = useState(null);
 
-    const web3 = new Web3(new Web3.providers.HttpProvider("https://polygon-mumbai-bor.publicnode.com"));
-    
+    const web3 = new Web3(window.ethereum);
+
     const contractInstance = new web3.eth.Contract(TicketExpressAbi, ContractAddressEnum.CONTRACTADDRESS);
 
     const buySellTicketHandler = async (ticketDetails) => {
@@ -27,12 +27,14 @@ const BuySellTicketButton = (props) => {
             })
 
             try {
-                const buyTicketInterface = contractInstance.methods.buyNewTicket(ticketDetails?.eventID).send({from: `${account}`})
-                .then(function(receipt){
-                    console.log(buyTicketInterface, receipt);
-                });
+                const eventId = ethers.toBigInt(ticketDetails?.eventID);
+                const buyTicketInterface = contractInstance.methods.buyNewTicket(eventId).send({ from: `${account}` })
+                    .then(function (receipt) {
+                        console.log(buyTicketInterface, receipt);
+                    });
+
             } catch (error) {
-                console.log(error, ticketDetails)
+                console.log(error)
             }
         } else {
             console.log("Connect your wallet")
