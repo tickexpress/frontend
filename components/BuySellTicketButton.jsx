@@ -12,7 +12,7 @@ const BuySellTicketButton = (props) => {
 
     const contractInstance = new web3.eth.Contract(TicketExpressAbi, ContractAddressEnum.CONTRACTADDRESS);
 
-    const buySellTicketHandler = async (ticketDetails) => {
+    const buySellTicketHandler = async (_payableAmount, _eventId) => {
         // Fetch Accounts
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         if (!!accounts) {
@@ -27,14 +27,16 @@ const BuySellTicketButton = (props) => {
             })
 
             try {
-                const eventId = ethers.toBigInt(ticketDetails?.eventID);
-                const buyTicketInterface = contractInstance.methods.buyNewTicket(eventId).send({ from: `${account}` })
+                const priceInWei = web3.utils.toWei(ticketDetails?.price, "ether");
+                console.log(priceInWei)
+
+                const buyTicketInterface = contractInstance.methods.buyNewTicket(priceInWei, 0).send({ from: `${account}` })
                     .then(function (receipt) {
                         console.log(buyTicketInterface, receipt);
                     });
 
             } catch (error) {
-                console.log(error)
+                console.log(priceInWei);
             }
         } else {
             console.log("Connect your wallet")
