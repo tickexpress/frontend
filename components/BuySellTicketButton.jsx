@@ -8,26 +8,36 @@ const BuySellTicketButton = (props) => {
     const { isTicketResale, ticketDetails } = props;
     const [account, setAccount] = useState(null);
 
-    const web3 = new Web3(Web3.givenProvider);
-    const contract = new web3.eth.Contract(TicketExpressAbi, ContractAddressEnum.CONTRACTADDRESS);
+    const web3 = new Web3(new Web3.providers.HttpProvider("https://polygon-mumbai-bor.publicnode.com"));
+    
+    const contractInstance = new web3.eth.Contract(TicketExpressAbi, ContractAddressEnum.CONTRACTADDRESS);
 
     const buySellTicketHandler = async (ticketDetails) => {
         // Fetch Accounts
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const account = ethers.getAddress(accounts[0]);
-        setAccount(account);
-
-        // Refresh Account 
-        window.ethereum.on('accountsChange', async () => {
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        if (!!accounts) {
             const account = ethers.getAddress(accounts[0]);
-            setAccount(account)
-        })
+            setAccount(account);
 
-        const buyNewTicket = await contract?._jsonInterface?.buyNewTicket?.[13]?.name?.call(ticketDetails?.eventID);//buyNewTicket?.call(ticketDetails?.eventID);
-        // const balance = await contract.getBalance.call(address);
+            // Refresh Account 
+            window.ethereum.on('accountsChange', async () => {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const account = ethers.getAddress(accounts[0]);
+                setAccount(account)
+            })
 
-        console.log(contract, buyNewTicket, ticketDetails?.eventID);
+            try {
+                const buyTicketInterface = contractInstance.methods.buyNewTicket(ticketDetails?.eventID).send({from: `${account}`})
+                .then(function(receipt){
+                    console.log(buyTicketInterface, receipt);
+                });
+            } catch (error) {
+                console.log(error, ticketDetails)
+            }
+        } else {
+            console.log("Connect your wallet")
+        }
+
     }
 
     return (
