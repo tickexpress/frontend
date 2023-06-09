@@ -9,28 +9,12 @@ import { ContractAddressEnum } from "./Constants";
 
 const Nav = () => {
   const [account, setAccount] = useState(null);
-  const [provider, setProvider] = useState(null);
-  const [ticketExpress, setTicketExpress] = useState(null);
 
   const connectHandler = async () => {
-    // Get provider and setProvider
-    const _provider = new ethers.BrowserProvider(window.ethereum);
-    setProvider(_provider);
-
-    // const signer = await provider?.getSigner();
-
-    const _ticketExpress = new ethers.Contract(ContractAddressEnum.CONTRACTADDRESS, TicketExpressABI, provider);
-    setTicketExpress(_ticketExpress);
-
     // Fetch Accounts
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
     const account = ethers.getAddress(accounts[0]);
     setAccount(account);
-
-     // console.log(signer, ticketExpress);
-    //  const balanceInAccount = await ticketExpress?.interface?.balanceOf(account);
-
-     console.log(`Balance In Account ==>`, ticketExpress?.interface)
 
     // Refresh Account 
     window.ethereum.on('accountsChange', async () => {
