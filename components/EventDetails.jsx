@@ -28,7 +28,7 @@ const EventDetails = (props) => {
         </Button>
         {!isTicketResale ? <Button className="flex-row justify-center items-center w-[200px] p-[18px] text-white text-sm rounded-lg bg-gradient-to-r from-[#2472FF] to-[#7E51DB] inline-flex">
           <span className='text-white'> Buy Ticket</span>
-        </Button> : <Button disabled={true} className="flex-row justify-center items-center w-[200px] p-[18px] text-white text-sm rounded-lg bg-gradient-to-r from-[#2472FF] to-[#7E51DB] inline-flex">
+        </Button> : <Button disabled={true} className="flex-row justify-center items-center w-[200px] p-[18px] text-white text-sm rounded-lg bg-gradient-to-r from-[#7E51DB] to-[#2472FF] inline-flex">
           <span className='text-white'> Resell Ticket</span>
         </Button>}
 
