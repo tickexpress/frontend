@@ -12,7 +12,7 @@ const Collections = () => {
   return (
     // <section className={`flex flex-col w-full max-w-7xl`}>
     <section className={`top-0 absolute flex flex-col w-full max-w-7xl mt-36`}>
-      <MoreEventSection title={"My Collections"}/>
+      <MoreEventSection title={"My Collections"} isTicketResale={true}/>
       <Footer />
     </section>
   );

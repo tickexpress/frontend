@@ -4,7 +4,7 @@ import Image from "next/image";
 import EventDetails from "./EventDetails";
 
 const MoreEventSection = (props) => {
-  const { title } = props;
+  const { title, isTicketResale } = props;
   const [openModal, setOpenModal] = useState(false);
   const [ticketDetails, setTicketDetails] = useState(null);
   const trendingEvents = [
@@ -60,6 +60,7 @@ const MoreEventSection = (props) => {
           open={openModal}
           ticketDetails={ticketDetails}
           onClose={() => setOpenModal(false)}
+          isTicketResale={isTicketResale}
         />
       )}
       <section

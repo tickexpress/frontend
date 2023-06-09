@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React from 'react'
 
 const EventDetails = (props) => {
-  const { title, open, onClose, ticketDetails } = props;
+  const { title, open, onClose, ticketDetails, isTicketResale } = props;
   return (
     <Dialog open={open} fullWidth>
       <DialogTitle>Event Category: {ticketDetails?.title}</DialogTitle>
@@ -26,9 +26,12 @@ const EventDetails = (props) => {
         <Button variant="outlined" color="error" onClick={onClose}>
           Cancel
         </Button>
-        <Button className="flex-row justify-center items-center w-[200px] p-[18px] text-white text-sm rounded-lg bg-gradient-to-r from-[#2472FF] to-[#7E51DB] inline-flex">
+        {!isTicketResale ? <Button className="flex-row justify-center items-center w-[200px] p-[18px] text-white text-sm rounded-lg bg-gradient-to-r from-[#2472FF] to-[#7E51DB] inline-flex">
           <span className='text-white'> Buy Ticket</span>
-        </Button>
+        </Button> : <Button disabled={true} className="flex-row justify-center items-center w-[200px] p-[18px] text-white text-sm rounded-lg bg-gradient-to-r from-[#2472FF] to-[#7E51DB] inline-flex">
+          <span className='text-white'> Resell Ticket</span>
+        </Button>}
+
       </DialogActions>
     </Dialog>
   )
