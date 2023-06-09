@@ -1,6 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material'
 import Image from 'next/image';
 import React from 'react'
+import BuySellTicketButton from './BuySellTicketButton';
 
 const EventDetails = (props) => {
   const { title, open, onClose, ticketDetails, isTicketResale } = props;
@@ -18,7 +19,7 @@ const EventDetails = (props) => {
           />
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2 py-4 justify-between">
             <span>Ticket Details:</span> {ticketDetails?.description}
-            <span>Ticket Price:</span> {ticketDetails?.price +' Matic'}
+            <span>Ticket Price:</span> {ticketDetails?.price + ' Matic'}
           </div>
         </div>
       </DialogContent>
@@ -26,12 +27,7 @@ const EventDetails = (props) => {
         <Button variant="outlined" color="error" onClick={onClose}>
           Cancel
         </Button>
-        {!isTicketResale ? <Button className="flex-row justify-center items-center w-[200px] p-[18px] text-white text-sm rounded-lg bg-gradient-to-r from-[#2472FF] to-[#7E51DB] inline-flex">
-          <span className='text-white'> Buy Ticket</span>
-        </Button> : <Button disabled={true} className="flex-row justify-center items-center w-[200px] p-[18px] text-white text-sm rounded-lg bg-gradient-to-r from-[#7E51DB] to-[#2472FF] inline-flex">
-          <span className='text-white'> Resell Ticket</span>
-        </Button>}
-
+        <BuySellTicketButton isTicketResale={isTicketResale} ticketDetails={ticketDetails} />
       </DialogActions>
     </Dialog>
   )
