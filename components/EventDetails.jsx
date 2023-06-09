@@ -16,9 +16,9 @@ const EventDetails = (props) => {
             width={240}
             height={240}
           />
-          <div className="grid gap-4 md:grid-cols-2lg:grid-cols-2 py-4 justify-between">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2 py-4 justify-between">
             <span>Ticket Details:</span> {ticketDetails?.description}
-            <span>Ticket Price:</span> {ticketDetails?.price}
+            <span>Ticket Price:</span> {ticketDetails?.price +' Matic'}
           </div>
         </div>
       </DialogContent>
