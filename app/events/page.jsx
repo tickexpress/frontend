@@ -15,7 +15,7 @@ const Events = () => {
     // <section className={`flex flex-col w-full max-w-7xl`}>
     <section className={`top-0 absolute flex flex-col w-full max-w-7xl mt-36`}>
       <EventsHeader />
-      <MoreEventSection title={"Discover more events"} />
+      <MoreEventSection title={"Discover more events"} isTicketResale={false} />
       <Footer />
     </section>
   );

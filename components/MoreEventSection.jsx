@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { EventBackgroundEnum } from "./Constants";
 import Image from "next/image";
 import EventDetails from "./EventDetails";

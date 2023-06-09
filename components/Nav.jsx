@@ -3,8 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ethers } from 'ethers';
-import TicketExpressABI from "../abis/TicketExpress.json";
-import { ContractAddressEnum } from "./Constants";
 
 
 const Nav = () => {

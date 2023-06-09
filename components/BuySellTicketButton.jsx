@@ -2,21 +2,14 @@ import { Button } from '@mui/material';
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
-import TicketExpressABI from '../abis/TicketExpress.json';
-import { ContractAddressEnum } from './Constants';
+import { ContractAddressEnum, TicketExpressAbi } from './Constants';
 
 const BuySellTicketButton = (props) => {
     const { isTicketResale, ticketDetails } = props;
     const [account, setAccount] = useState(null);
 
     const web3 = new Web3(Web3.givenProvider);
-    const abi = TicketExpressABI;
-    const contract = new web3.eth.Contract(abi, ContractAddressEnum.CONTRACTADDRESS);
-
-    // console.log(contract?._functions);
-    // console.log(web3, abi?.[13]?.name);
-
-
+    const contract = new web3.eth.Contract(TicketExpressAbi, ContractAddressEnum.CONTRACTADDRESS);
 
     const buySellTicketHandler = async (ticketDetails) => {
         // Fetch Accounts
@@ -31,7 +24,7 @@ const BuySellTicketButton = (props) => {
             setAccount(account)
         })
 
-        const buyNewTicket = await contract?._functions.buyNewTicket?.call(ticketDetails?.eventID);
+        const buyNewTicket = await contract?._jsonInterface?.buyNewTicket?.[13]?.name?.call(ticketDetails?.eventID);//buyNewTicket?.call(ticketDetails?.eventID);
         // const balance = await contract.getBalance.call(address);
 
         console.log(contract, buyNewTicket, ticketDetails?.eventID);
