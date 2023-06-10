@@ -12,9 +12,12 @@ const BuySellTicketButton = (props) => {
 
     const contractInstance = new web3.eth.Contract(TicketExpressAbi, ContractAddressEnum.CONTRACTADDRESS);
 
-    const buySellTicketHandler = async (_payableAmount, _eventId) => {
+    const buySellTicketHandler = async () => {
         // Fetch Accounts
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const gasPrice = await web3.eth.getGasPrice();
+        const _payableAmount = web3.utils.toWei(ticketDetails?.price, "ether");
+
         if (!!accounts) {
             const account = ethers.getAddress(accounts[0]);
             setAccount(account);
@@ -27,16 +30,23 @@ const BuySellTicketButton = (props) => {
             })
 
             try {
-                const priceInWei = web3.utils.toWei(ticketDetails?.price, "ether");
-                console.log(priceInWei)
-
-                const buyTicketInterface = contractInstance.methods.buyNewTicket(priceInWei, 0).send({ from: `${account}` })
-                    .then(function (receipt) {
-                        console.log(buyTicketInterface, receipt);
+                // Price before conversion
+                console.log(`Price before conversion ===>`, ticketDetails?.price);
+                // Price after conversion
+                console.log(`Price after conversion ===>`, _payableAmount);
+                contractInstance.methods.buyNewTicket(_payableAmount, 0).send(
+                    {
+                        from: `${account}`,
+                        gas: `100000`,
+                        gasPrice: gasPrice,
+                    }
+                )
+                    .then((receipt) => {
+                        console.log(receipt)
+                        return receipt;
                     });
-
             } catch (error) {
-                console.log(priceInWei);
+                console.log(`Error ==>`, error);
             }
         } else {
             console.log("Connect your wallet")
@@ -49,7 +59,7 @@ const BuySellTicketButton = (props) => {
             {!isTicketResale ? <Button
                 className="flex-row justify-center items-center w-[200px] p-[18px] text-white text-sm rounded-lg bg-gradient-to-r from-[#2472FF] to-[#7E51DB] inline-flex"
                 onClick={() => {
-                    buySellTicketHandler(ticketDetails);
+                    buySellTicketHandler();
                 }}>
                 <span className='text-white'> Buy Ticket</span>
             </Button> : <Button disabled={true} className="flex-row justify-center items-center w-[200px] p-[18px] text-white text-sm rounded-lg bg-gradient-to-r from-[#7E51DB] to-[#2472FF] inline-flex">

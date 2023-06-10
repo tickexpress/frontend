@@ -64,7 +64,7 @@ const MoreEventSection = (props) => {
         />
       )}
       <section
-        className={`w-full p-5 pb-20 px-20 grid grid-cols-3 gap-6 min-h-[400px] ${EventBackgroundEnum.WHITE}`}
+        className={`w-full p-5 pb-20 px-20 grid md:grid-cols-3 gap-6 min-h-[400px] ${EventBackgroundEnum.WHITE}`}
       >
         <div className="text-4xl text-black col-span-3">{title}</div>
         <div className="flex flex-row col-span-3 gap-2">
