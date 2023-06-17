@@ -30,21 +30,25 @@ const BuySellTicketButton = (props) => {
             })
 
             try {
+
+                const uint256payableAmount = web3.eth.abi.encodeParameter('uint256', _payableAmount);
+                const uint256eventId = web3.eth.abi.encodeParameter('uint256', 0);
                 // Price before conversion
-                console.log(`Price before conversion ===>`, ticketDetails?.price);
+                console.log(`Event Id ===>`, uint256eventId);
                 // Price after conversion
-                console.log(`Price after conversion ===>`, _payableAmount);
-                contractInstance.methods.buyNewTicket(_payableAmount, 0).send(
-                    {
-                        from: `${account}`,
-                        gas: `100000`,
-                        gasPrice: gasPrice,
-                    }
-                )
-                    .then((receipt) => {
-                        console.log(receipt)
-                        return receipt;
-                    });
+                console.log(`Price after conversion to uint256 ===>`, uint256payableAmount);
+                console.log(contractInstance.methods)
+                // contractInstance.methods.buyNewTicket(uint256payableAmount).send(
+                //     {
+                //         from: `${account}`,
+                //         gas: `100000`,
+                //         gasPrice: gasPrice,
+                //     }
+                // )
+                //     .then((receipt) => {
+                //         console.log(receipt)
+                //         return receipt;
+                //     });
             } catch (error) {
                 console.log(`Error ==>`, error);
             }
