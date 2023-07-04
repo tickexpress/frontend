@@ -16,39 +16,32 @@ const BuySellTicketButton = (props) => {
         // Fetch Accounts
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         const gasPrice = await web3.eth.getGasPrice();
-        const _payableAmount = web3.utils.toWei(ticketDetails?.price, "ether");
+        const _payableAmount = web3.utils.toWei(0.01, "ether");
 
         if (!!accounts) {
-            const account = ethers.getAddress(accounts[0]);
-            setAccount(account);
+            const from = ethers.getAddress(accounts[0]);
+            setAccount(from);
 
             // Refresh Account 
             window.ethereum.on('accountsChange', async () => {
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                const account = ethers.getAddress(accounts[0]);
-                setAccount(account)
-            })
+                const from = ethers.getAddress(accounts[0]);
+                setAccount(from)
+            });
 
             try {
-
-                const uint256payableAmount = web3.eth.abi.encodeParameter('uint256', _payableAmount);
-                const uint256eventId = web3.eth.abi.encodeParameter('uint256', 0);
-                // Price before conversion
-                console.log(`Event Id ===>`, uint256eventId);
-                // Price after conversion
-                console.log(`Price after conversion to uint256 ===>`, uint256payableAmount);
-                console.log(contractInstance.methods)
-                // contractInstance.methods.buyNewTicket(uint256payableAmount).send(
-                //     {
-                //         from: `${account}`,
-                //         gas: `100000`,
-                //         gasPrice: gasPrice,
-                //     }
-                // )
-                //     .then((receipt) => {
-                //         console.log(receipt)
-                //         return receipt;
-                //     });
+                contractInstance.methods.buyNewTicket("MadeInLagos", { value: _payableAmount }).send(
+                    {
+                        from: `${from}`,
+                        gas: `10000000`,
+                        gasPrice: gasPrice,
+                        value: _payableAmount,
+                    }
+                )
+                    .then((receipt) => {
+                        console.log(receipt)
+                        return receipt;
+                    });
             } catch (error) {
                 console.log(`Error ==>`, error);
             }
