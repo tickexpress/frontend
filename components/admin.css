@@ -1,0 +1,319 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: #ffffff;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 1.2);
+}
+
+.company-name {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Clash Display";
+  width: 180px;
+  height: 24px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 24px;
+  color: #474d53;
+}
+
+.nav-links ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 0 10px;
+  width: 45px;
+  height: 21px;
+  font-family: "DM Sans";
+  color: #474d53;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 21px;
+}
+
+.wallet-address {
+  font-size: 14px;
+  border: 2px solid #333;
+  border-radius: 50px;
+  padding: 5px 10px;
+  width: 118px;
+  height: 21px;
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 21px;
+  color: #76808a;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+/* Left sidebar styles */
+.left-sidebar {
+  background-color: #f2f2f2;
+  padding: 20px;
+  width: 252px;
+  height: 854px;
+  left: 0px;
+  background: #ffffff;
+  box-shadow: 8px 0px 8px rgba(0, 0, 0, 0.08);
+}
+
+.sidebar-links {
+  list-style: none;
+  margin: 0;
+  padding: 16px;
+  gap: 32px;
+  width: 212px;
+  height: 64px;
+  top: 112px;
+  background: #ffffff;
+}
+
+.sidebar-links li {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 16px;
+  gap: 32px;
+  width: 312px;
+  height: 64px;
+  left: calc(50% - 312px / 2 + 20px);
+  top: 170px;
+}
+
+.sidebar-links li.active {
+  padding: 16px;
+  gap: 32px;
+  top: 200px;
+  width: 232px;
+  height: 32px;
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 32px;
+  text-align: center;
+  background: linear-gradient(90.69deg, #2472ff -22.6%, #7e51db 86.31%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.popup-box {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin-top: 20px;
+  margin-top: 180px;
+  box-sizing: border-box;
+  width: 250px;
+  height: 260px;
+  top: 464px;
+  background: linear-gradient(90.69deg, #2472ff -22.6%, #7e51db 86.31%);
+  border: 1px solid #ffffff;
+  border-radius: 24px;
+}
+
+.popup-box h3 {
+  margin-bottom: 0;
+  width: 220px;
+  height: 32px;
+  top: 32px;
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.popup-box p {
+  margin-bottom: 0;
+  width: 216px;
+  height: 48px;
+  left: calc(50% - 216px / 2 + 2.63px);
+  top: 88px;
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.popup-box button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  gap: 32px;
+  width: 220px;
+  height: 56px;
+  left: calc(50% - 200px / 2);
+  top: 172px;
+  background: #ffffff;
+  border-radius: 24px;
+}
+
+.input-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.input-row > div {
+  flex-grow: 1;
+}
+
+/* Ticket details page styles */
+.ticket-details-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  left: 400px;
+  top: 176px;
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 48px;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-grow: 1;
+}
+
+.right-section {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.right-section h1 {
+  margin-top: 0;
+  width: 264px;
+  height: 48px;
+  left: 400px;
+  top: 176px;
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 48px;
+  color: #141414;
+}
+
+.right-section h2 {
+  margin-top: 20px;
+  width: 500px;
+  height: 24px;
+  left: 400px;
+  top: 256px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: #141414;
+  font-family: "DM Sans";
+  font-style: normal;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.ticket-details-page input[type="text"] {
+  left: 400px;
+  top: 288px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 16px 8px;
+  gap: 274px;
+  width: 457px;
+  height: 56px;
+  border: 1px solid #141414;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.description-input {
+  height: 304px;
+  left: 400px;
+  top: 424px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 16px 8px;
+  gap: 8px;
+  width: 1021px;
+  height: 184px;
+  border: 1px solid #141414;
+  border-radius: 8px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+.ticket-details-page select {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 16px 8px;
+  gap: 8px;
+  width: 457px;
+  height: 56px;
+  border: 1px solid #76808a;
+  border-radius: 8px;
+}
+
+.next-button {
+  bottom: 20px;
+  right: 20px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  gap: 32px;
+  width: 1021px;
+  height: 64px;
+  left: calc(50% - 1017px / 2 + 144.5px);
+  top: 858px;
+  background: linear-gradient(90.69deg, #2472ff -22.6%, #7e51db 86.31%);
+  border-radius: 8px;
+}
