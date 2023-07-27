@@ -1,11 +1,14 @@
 "use client"
 
-
 // Import necessary modules
 import React, { useState } from "react"
 import Web3 from "web3"
 import { ethers } from "ethers"
 import { ContractAddressEnum, TicketExpressAbi } from "@components/Constants"
+import Spinner from "@components/spinner"
+import { toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import { ToastContainer } from "react-toastify"
 import "./admin.css"
 
 // Component for the Navbar
@@ -44,6 +47,7 @@ const LeftSidebar = () => {
 // Component for Ticket Details
 const TicketDetails = () => {
   // State variables to store form data
+  const [loading, setLoading] = useState(false)
   const [account, setAccount] = useState(null)
   const [ticketName, setTicketName] = useState(null)
   const [ticketPrice, setTicketprice] = useState(null)
@@ -83,6 +87,11 @@ const TicketDetails = () => {
     const gasPrice = await web3.eth.getGasPrice()
 
     if (!!accounts) {
+      setLoading(true)
+      toast.info("creating event", {
+        position: toast.POSITION.TOP_CENTER,
+        toastId: 0,
+      })
       const from = ethers.getAddress(accounts[0])
       setAccount(from)
 
@@ -93,95 +102,109 @@ const TicketDetails = () => {
         })
         const from = ethers.getAddress(accounts[0])
         setAccount(from)
-
-    
       })
-
-      try {
-        // Send a transaction to create the event
-        contractInstance.methods
-          .createEvent(ticketName, ticketPrice, totalTickets, 1690562080)
-          .send({
-            to: ContractAddressEnum.CONTRACTADDRESS,
-            from: `${from}`,
-            gas: `10000000`,
+      // Send a transaction to create the event
+      contractInstance.methods
+        .createEvent(ticketName, ticketPrice, totalTickets, 1690562080)
+        .send({
+          to: ContractAddressEnum.CONTRACTADDRESS,
+          from: `${from}`,
+          gas: `10000000`,
+        })
+        .once("error", (err) => {
+          toast.error("failed to create event", {
+            position: toast.POSITION.TOP_CENTER,
+            toastId: 0,
           })
-          .then((res) => {
-            console.log(res)
-            return res
+          setLoading(false)
+        })
+        .then(() => {
+          toast.success("event created successfully", {
+            position: toast.POSITION.TOP_CENTER,
+            toastId: 0,
           })
-      } catch (error) {
-        console.error(`Error ==>`, error)
-      }
+          setLoading(false)
+        })
     } else {
       console.log("Connect your wallet")
+      setLoading(false)
     }
   }
 
   return (
-    <div className="ticket-details-page">
-      {/* <NavBar /> */}
-      <div className="content-wrapper">
-        {/* Render the LeftSidebar component */}
-        <LeftSidebar />
-        <div className="right-section">
-          <h1>Add Ticket</h1>
-          <div className="input-row">
-            <div>
-              <h2>Ticket Name</h2>
-              <input
-                onChange={handleTicketName}
-                type="text"
-                className="name-input"
-                placeholder="Type here"
-              />
+    <>
+      <ToastContainer />
+      <div className="ticket-details-page">
+        {/* <NavBar /> */}
+        <div className="content-wrapper">
+          {/* Render the LeftSidebar component */}
+          <LeftSidebar />
+          <div className="right-section">
+            <h1>Add Ticket</h1>
+            <div className="input-row">
+              <div>
+                <h2>Ticket Name</h2>
+                <input
+                  onChange={handleTicketName}
+                  type="text"
+                  className="name-input"
+                  placeholder="Type here"
+                />
+              </div>
+              <div>
+                <h2>Ticket Price</h2>
+                <input
+                  onChange={handleTicketPrice}
+                  type="number"
+                  min={0}
+                  className="name-input"
+                  placeholder="Enter ticket price"
+                />
+              </div>
+            </div>
+            <div className="input-row">
+              <div>
+                <h2>No. of Tickets on Sale</h2>
+                <input
+                  onChange={handleTotalTickets}
+                  type="number"
+                  className="name-input"
+                  placeholder="Number of tickets"
+                />
+              </div>
+              <div>
+                <h2>Ticket Category</h2>
+                <select>
+                  <option value="">Number of tickets</option>
+                </select>
+              </div>
             </div>
             <div>
-              <h2>Ticket Price</h2>
-              <input
-                onChange={handleTicketPrice}
-                type="number"
-                min={0}
-                className="name-input"
-                placeholder="Enter ticket price"
-              />
+              <h2>Description</h2>
+              <textarea
+                className="description-input"
+                placeholder="Brief detail about the ticket"
+              ></textarea>
             </div>
-          </div>
-          <div className="input-row">
-            <div>
-              <h2>No. of Tickets on Sale</h2>
-              <input
-                onChange={handleTotalTickets}
-                type="number"
-                className="name-input"
-                placeholder="Number of tickets"
-              />
+            <div className="input-row">
+              <button
+                className="next-button"
+                onClick={() => createEventHandler()}
+              >
+                {/* {loading ? (
+                  <Spinner size={20} color={"white"} />
+                ) : (
+                  <span>Upload Ticket</span>
+                )} */}
+
+          
+                Upload Ticket
+              </button>
             </div>
-            <div>
-              <h2>Ticket Category</h2>
-              <select>
-                <option value="">Number of tickets</option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <h2>Description</h2>
-            <textarea
-              className="description-input"
-              placeholder="Brief detail about the ticket"
-            ></textarea>
-          </div>
-          <div className="input-row">
-            <button
-              className="next-button"
-              onClick={() => createEventHandler()}
-            >
-              Upload Ticket
-            </button>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
