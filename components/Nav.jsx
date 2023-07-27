@@ -99,4 +99,8 @@ const navlink = [
     linktitle: "Collections",
     url: "/collections",
   },
-];
+  {
+    linktitle: "Admin",
+    url: "/admin",
+  },
+]
