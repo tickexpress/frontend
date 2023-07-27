@@ -1,11 +1,14 @@
 "use client"
 
+
+// Import necessary modules
 import React, { useState } from "react"
 import Web3 from "web3"
 import { ethers } from "ethers"
 import { ContractAddressEnum, TicketExpressAbi } from "@components/Constants"
 import "./admin.css"
 
+// Component for the Navbar
 const NavBar = () => {
   return (
     <div className="navbar">
@@ -22,6 +25,7 @@ const NavBar = () => {
   )
 }
 
+// Component for the left sidebar
 const LeftSidebar = () => {
   return (
     <div className="left-sidebar">
@@ -37,13 +41,16 @@ const LeftSidebar = () => {
   )
 }
 
+// Component for Ticket Details
 const TicketDetails = () => {
+  // State variables to store form data
   const [account, setAccount] = useState(null)
   const [ticketName, setTicketName] = useState(null)
   const [ticketPrice, setTicketprice] = useState(null)
   const [totalTickets, setTotalTickets] = useState(null)
   const [eventDate, setEventDate] = useState(null)
 
+  // Event handlers for form input fields
   const handleTicketName = (e) => {
     setTicketName(e.target.value)
   }
@@ -60,25 +67,26 @@ const TicketDetails = () => {
     setEventDate(e.target.value)
   }
 
+  // Initialize Web3 and the contract instance
   const web3 = new Web3(typeof window !== "undefined" && window.ethereum)
   const contractInstance = new web3.eth.Contract(
     TicketExpressAbi,
     ContractAddressEnum.CONTRACTADDRESS
   )
 
+  // Event handler to create a new event
   const createEventHandler = async () => {
-    // Fetch Accounts
+    // Fetch Accounts using Ethereum provider
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
     })
     const gasPrice = await web3.eth.getGasPrice()
-    // const _payableAmount = web3.utils.toWei(0.01, "ether")
 
     if (!!accounts) {
       const from = ethers.getAddress(accounts[0])
       setAccount(from)
 
-      // Refresh Account
+      // Refresh Account when account changes
       window.ethereum.on("accountsChange", async () => {
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
@@ -86,11 +94,11 @@ const TicketDetails = () => {
         const from = ethers.getAddress(accounts[0])
         setAccount(from)
 
-       
+    
       })
 
       try {
-        //  console.log("acc", from)
+        // Send a transaction to create the event
         contractInstance.methods
           .createEvent(ticketName, ticketPrice, totalTickets, 1690562080)
           .send({
@@ -109,10 +117,12 @@ const TicketDetails = () => {
       console.log("Connect your wallet")
     }
   }
+
   return (
     <div className="ticket-details-page">
       {/* <NavBar /> */}
       <div className="content-wrapper">
+        {/* Render the LeftSidebar component */}
         <LeftSidebar />
         <div className="right-section">
           <h1>Add Ticket</h1>
