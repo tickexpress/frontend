@@ -89,6 +89,13 @@ const TicketDetailsPage = () => {
           <input style={{ width: '480px', height: '60px' }} type="date" id="myDateField" className="border border-gray-300 rounded-md p-2" />
         </div>
         </div>
+
+        <div className="input-row flex gap-4 mb-4">
+        <div className="text-gray-700 font-medium text-base font-sans text-left">
+        <h2>Enter Time</h2>
+          <input style={{ width: '480px', height: '60px' }} type="time" id="myDateField" className="border border-gray-300 rounded-md p-2" />
+        </div>
+        </div>
         
       <div className="text-gray-700 font-medium text-base font-sans text-left">
         <h2>Upload banner image</h2>
