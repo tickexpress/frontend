@@ -283,7 +283,10 @@ const TicketDetails = () => {
               <button
                 onClick={createEventHandler}
                 style={{ width: "1000px", height: "50px" }}
-                className="next-button bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-md px-4 py-2"
+                className={[
+                  "next-button bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-md px-4 py-2",
+                  loading && "cursor-not-allowed",
+                ].join(" ")}
               >
                 {/* Show spinner while loading, or else show the "Upload Ticket" text */}
                 {loading ? (
@@ -291,7 +294,6 @@ const TicketDetails = () => {
                 ) : (
                   <span>Upload Ticket</span>
                 )}
-      
               </button>
             </div>
           </div>
