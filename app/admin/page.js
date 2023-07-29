@@ -109,13 +109,16 @@ const TicketDetails = () => {
 
       try {
         setLoading(true)
-        contractInstance.methods
+
+        // send a transaction to create event
+        await contractInstance.methods
           .createEvent(ticketName, ticketPrice, totalTickets, startDate)
           .send({
             to: ContractAddressEnum.CONTRACTADDRESS,
             from: `${from}`,
             gas: `10000000`,
           })
+
           .then(() => {
             toast.success("event created successfully", {
               position: toast.POSITION.TOP_CENTER,
@@ -123,44 +126,15 @@ const TicketDetails = () => {
             })
             setLoading(false)
           })
-          .once("error", (err) => {
-            toast.error("failed to create event", {
-              position: toast.POSITION.TOP_CENTER,
-              toastId: 0,
-            })
-            setLoading(false)
-          })
       } catch (error) {
-        console.error("error=>", error)
-        toast.error("failed to create event", {
+        // handle errors
+        console.error("error=>", error.message)
+        toast.error("error: failed to create event", {
           position: toast.POSITION.TOP_CENTER,
           toastId: 0,
         })
         setLoading(false)
       }
-
-      // Send a transaction to create the event
-      contractInstance.methods
-        .createEvent(ticketName, ticketPrice, totalTickets, startDate)
-        .send({
-          to: ContractAddressEnum.CONTRACTADDRESS,
-          from: `${from}`,
-          gas: `10000000`,
-        })
-        .once("error", (err) => {
-          toast.error("failed to create event", {
-            position: toast.POSITION.TOP_CENTER,
-            toastId: 0,
-          })
-          setLoading(false)
-        })
-        .then(() => {
-          toast.success("event created successfully", {
-            position: toast.POSITION.TOP_CENTER,
-            toastId: 0,
-          })
-          setLoading(false)
-        })
     } else {
       console.log("Connect your wallet")
       setLoading(false)
@@ -180,7 +154,7 @@ const TicketDetails = () => {
         <div className="content-wrapper flex">
           {/* Render the LeftSidebar component */}
           <LeftSidebar />
-          <form
+          <div
             // onSubmit={handleSubmit}
             className="right-section flex-grow p-4"
           >
@@ -307,7 +281,7 @@ const TicketDetails = () => {
 
             <div className="input-row text-left">
               <button
-                onClick={() => createEventHandler()}
+                onClick={createEventHandler}
                 style={{ width: "1000px", height: "50px" }}
                 className="next-button bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-md px-4 py-2"
               >
@@ -317,10 +291,10 @@ const TicketDetails = () => {
                 ) : (
                   <span>Upload Ticket</span>
                 )}
-                {/* Upload Ticket */}
+      
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </>
