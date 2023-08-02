@@ -84,6 +84,7 @@ const TicketDetails = () => {
 
   // Event handler to create a new event
   const createEventHandler = async () => {
+    setLoading(true)
     const startDate = Date.parse(eventStartDate) / 1000
     const endDate = Date.parse(eventStartDate) / 10000
     // Fetch Accounts using Ethereum provider
@@ -93,8 +94,6 @@ const TicketDetails = () => {
     const gasPrice = await web3.eth.getGasPrice()
 
     if (!!accounts) {
-      setLoading(true)
-
       const from = ethers.getAddress(accounts[0])
       setAccount(from)
 
