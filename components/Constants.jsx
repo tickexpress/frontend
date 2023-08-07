@@ -4,7 +4,7 @@ export const EventBackgroundEnum = {
 }
 
 export const ContractAddressEnum = {
-  CONTRACTADDRESS: "0x271B96eCF5cB5F4A484C8D9e0eadDab0bE6e59A8",
+  CONTRACTADDRESS: "0xc3b1FF58Fa728E803a2475f6F351033c8b8c8bD1",
 }
 
 export const TicketExpressAbi = [
