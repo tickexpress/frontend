@@ -153,8 +153,8 @@ const TicketDetails = () => {
         <div className="content-wrapper flex">
           {/* Render the LeftSidebar component */}
           <LeftSidebar />
-          <div
-            // onSubmit={handleSubmit}
+          <form
+            onSubmit={handleSubmit}
             className="right-section flex-grow p-4"
           >
             <div className="text-gray-800 font-bold text-2xl font-sans text-left">
@@ -204,7 +204,7 @@ const TicketDetails = () => {
                 <input
                   onChange={handleTicketPrice}
                   type="number"
-                  min={0}
+                  min={1}
                   style={{ width: "480px", height: "60px" }}
                   className="h-15 flex-shrink-0 name-input border border-gray-300 rounded-md p-2 text-left mr-4"
                   placeholder="0.00"
@@ -280,7 +280,7 @@ const TicketDetails = () => {
 
             <div className="input-row text-left">
               <button
-                onClick={createEventHandler}
+                // onClick={createEventHandler}
                 style={{ width: "1000px", height: "50px" }}
                 className={[
                   "next-button bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-md px-4 py-2",
@@ -295,7 +295,7 @@ const TicketDetails = () => {
                 )}
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </>
